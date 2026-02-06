@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Shobly will you be my Valentine 💐 ?</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --card: rgba(255, 255, 255, 0.05);
+            --yes: #ff3b7a;
+            --yesHover: #ff1f68;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100svh;
+            display: grid;
+            place-items: center;
+            background: url("IMG_3654.HEIC") center / cover no-repeat fixed;
+            font-family: system-ui, sans-serif;
+            overflow: hidden;
+            padding: 16px;
+        }
+
+        /* CONFETTI */
+        #confettiCanvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* CARD */
+        .card {
+            width: min(950px, 95vw);
+            padding: 26px;
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border-radius: 22px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, .2);
+        }
+
+        /* GRID */
+        .card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            align-items: center;
+        }
+
+        @media(max-width:720px) {
+            .card-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* TEDDY */
+        .art {
+            width: min(240px, 80vw);
+            margin: auto;
+            display: block;
+        }
+
+        /* BUTTONS */
+        .button-zone {
+            position: relative;
+            width: min(420px, 92%);
+            height: 140px;
+            margin: auto;
+            touch-action: none;
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 16px 24px;
+            font-size: 18px;
+            font-weight: 800;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .2);
+        }
+
+        #yesBtn {
+            left: 18%;
+            background: var(--yes);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            background: var(--yesHover);
+        }
+
+        #noBtn {
+            left: 62%;
+            background: #e5e7eb;
+            color: #111;
+        }
+
+        /* RESULT */
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .result h2 {
+            font-size: clamp(36px, 5vw, 60px);
+            color: #ff4d7d;
+            text-shadow: 0 0 25px rgba(255, 77, 125, .8);
+        }
+
+        .love-text {
+            font-size: clamp(18px, 2.4vw, 26px);
+        }
+
+        /* HEARTS */
+        .heart {
+            position: fixed;
+            bottom: -40px;
+            font-size: 28px;
+            animation: floatUp 6s linear infinite;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-120vh) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SIDE VIDEO */
+        .side-video {
+            display: flex;
+            justify-content: center;
+        }
+
+        .side-video video {
+            height: 420px;
+            max-height: 70vh;
+            width: auto;
+            object-fit: contain;
+            border-radius: 18px;
+            background: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="confettiCanvas"></canvas>
+
+    <main class="card">
+        <div class="card-content">
+
+            <!-- LEFT -->
+            <div>
+
+                <svg class="art" viewBox="0 0 320 240">
+                    <path
+                        d="M250 50 C250 33 270 25 282 38 C294 25 314 33 314 50 C314 78 282 92 282 106 C282 92 250 78 250 50Z"
+                        fill="#ff4d7d" />
+                    <path
+                        d="M90 120 C90 70 140 40 190 60 C240 40 290 70 290 120 C290 180 240 210 190 210 C140 210 90 180 90 120Z"
+                        fill="#f7c7a1" />
+                    <circle cx="160" cy="130" r="8" />
+                    <circle cx="220" cy="130" r="8" />
+                </svg>
+
+                <h1 style="color: rgb(255, 255, 255);">Shobly will you be my Valentine ❤️💐?</h1>
+
+
+                <section class="button-zone" id="zone">
+                    <button id="yesBtn">Yes</button>
+                    <button id="noBtn">No</button>
+                </section>
+
+                <div class="hint" id="hint">“No” seems a bit shy 😈 not an option baby 👸🏼</div>
+
+                <section class="result" id="result">
+                    <h2>She Said YES 💖</h2>
+                    <div class="love-text">
+                        You are my forever Valentine, today and always 🌹<br>
+                        I love you endlessly 🌹❤️ more than words could ever hold❤️
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="side-video">
+                <video autoplay muted loop playsinline>
+                    <source src="Shobly♥️Hash.mp4" type="video/mp4">
+                </video>
+            </div>
+
+
+        </div>
+    </main>
+
+    <!-- 🎧 AUDIO -->
+    <audio id="romanceAudio" src="CantHelpFalling.mp3" preload="auto" loop></audio>
+
+    <script>
+        const zone = document.getElementById("zone");
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const result = document.getElementById("result");
+        const hint = document.getElementById("hint");
+
+        /* CONFETTI */
+        const confettiCanvas = document.getElementById("confettiCanvas");
+        const confettiInstance = confetti.create(confettiCanvas, { resize: true, useWorker: true });
+
+        function fullScreenConfetti() {
+            const end = Date.now() + 1500;
+            (function frame() {
+                confettiInstance({
+                    particleCount: 12,
+                    spread: 90,
+                    startVelocity: 45,
+                    origin: { x: Math.random(), y: Math.random() * 0.4 }
+                });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            })();
+            confettiInstance({
+                particleCount: 250,
+                spread: 140,
+                startVelocity: 60,
+                origin: { x: 0.5, y: 0.6 }
+            });
+        }
+
+        /* HEARTS */
+        function spawnHearts() {
+            setInterval(() => {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.textContent = Math.random() > 0.5 ? "💖    🫶    🌸       ♥️" : "💐    🎊   🌹    🎉    🌺";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.fontSize = 20 + Math.random() * 30 + "px";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 6000);
+            }, 250);
+        }
+
+        /* ORIGINAL NO RUN */
+        function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+        function moveNo(px, py) {
+            const z = zone.getBoundingClientRect();
+            const b = noBtn.getBoundingClientRect();
+            let dx = (b.left + b.width / 2) - px;
+            let dy = (b.top + b.height / 2) - py;
+            let mag = Math.hypot(dx, dy) || 1;
+            dx /= mag; dy /= mag;
+            let nl = (b.left - z.left) + dx * 150;
+            let nt = (b.top - z.top) + dy * 150;
+            nl = clamp(nl, 0, z.width - b.width);
+            nt = clamp(nt, 0, z.height - b.height);
+            noBtn.style.left = nl + "px";
+            noBtn.style.top = nt + "px";
+            noBtn.style.transform = "none";
+        }
+        zone.addEventListener("pointermove", e => {
+            const b = noBtn.getBoundingClientRect();
+            const d = Math.hypot((b.left + b.width / 2) - e.clientX, (b.top + b.height / 2) - e.clientY);
+            if (d < 140) moveNo(e.clientX, e.clientY);
+        });
+
+        /* YES CLICK */
+        yesBtn.onclick = () => {
+            zone.style.display = "none";
+            hint.style.display = "none";
+            result.style.display = "block";
+            fullScreenConfetti();
+            spawnHearts();
+            document.getElementById("romanceAudio").play();
+        };
+    </script>
+
+</body>
+
+</html>
